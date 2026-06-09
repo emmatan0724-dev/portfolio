@@ -913,7 +913,140 @@ body{font-family:'Inter','Noto Sans TC',Arial,sans-serif;background:#181b23;colo
 
 </div>
 
+<style id="password-lock-styles">
+#password-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0e101a 0%, #181b23 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+#password-box {
+  background: rgba(27, 32, 48, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  min-width: 320px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+#password-box h2 {
+  color: #38bdf8;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+#password-box p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+#password-input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 16px;
+  outline: none;
+  text-align: center;
+  letter-spacing: 2px;
+}
+#password-input:focus {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+#password-submit {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.3));
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+#password-submit:hover {
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.3), rgba(56, 189, 248, 0.4));
+  border-color: rgba(56, 189, 248, 0.8);
+}
+#password-error {
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: 10px;
+  min-height: 18px;
+}
+</style>
+
+<div id="password-overlay">
+  <div id="password-box">
+    <h2>🔒 Emma's Portfolio</h2>
+    <p>請輸入密碼查看履歷</p>
+    <input type="password" id="password-input" placeholder="請輸入密碼" autofocus>
+    <button id="password-submit">解鎖</button>
+    <div id="password-error"></div>
+  </div>
+</div>
+
 <script>
+// 密碼保護功能
+const CORRECT_PASSWORD = '0724';
+const passwordOverlay = document.getElementById('password-overlay');
+const passwordInput = document.getElementById('password-input');
+const passwordSubmit = document.getElementById('password-submit');
+const passwordError = document.getElementById('password-error');
+
+function checkPassword() {
+  const enteredPassword = passwordInput.value;
+  if (enteredPassword === CORRECT_PASSWORD) {
+    // 密碼正確，移除遮罩
+    passwordOverlay.style.opacity = '0';
+    passwordOverlay.style.transition = 'opacity 0.5s';
+    setTimeout(() => {
+      passwordOverlay.remove();
+      document.getElementById('password-lock-styles').remove();
+    }, 500);
+  } else {
+    // 密碼錯誤
+    passwordError.textContent = '密碼錯誤，請重試';
+    passwordInput.value = '';
+    passwordInput.focus();
+    // 添加震動效果
+    passwordInput.style.animation = 'shake 0.3s';
+    setTimeout(() => {
+      passwordInput.style.animation = '';
+    }, 300);
+  }
+}
+
+// 點擊按鈕檢查密碼
+passwordSubmit.addEventListener('click', checkPassword);
+
+// Enter 鍵檢查密碼
+passwordInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    checkPassword();
+  }
+});
+
+// 震動動畫
+const style = document.createElement('style');
+style.textContent = `
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+`;
+document.head.appendChild(style);
+
 function toggleAccordion(item) {
   const allItems = document.querySelectorAll('.accordion-item');
   const wasOpen = item.classList.contains('open');
