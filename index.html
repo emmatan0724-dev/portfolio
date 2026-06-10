@@ -65,6 +65,13 @@ body{font-family:'Inter','Noto Sans TC',Arial,sans-serif;background:#181b23;colo
 .testimonial-card{background:rgba(30,41,59,0.4);padding:20px;border-radius:10px;border-left:3px solid rgba(56,189,248,0.5);margin-bottom:14px}
 .testimonial-text{font-size:14px;color:rgba(255,255,255,0.85);font-style:italic;line-height:1.7;margin-bottom:10px}
 .testimonial-author{font-size:12px;color:#38bdf8;text-align:right;font-weight:500}
+.testimonial-toggle{cursor:pointer;padding:12px 16px;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);border-radius:8px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s}
+.testimonial-toggle:hover{background:rgba(56,189,248,0.15);border-color:rgba(56,189,248,0.5)}
+.toggle-text{font-size:13px;color:#38bdf8;font-weight:500}
+.toggle-arrow{font-size:12px;color:#38bdf8;transition:transform 0.3s}
+.testimonial-toggle.open .toggle-arrow{transform:rotate(180deg)}
+.testimonials-collapsible{max-height:0;overflow:hidden;transition:max-height 0.5s ease-out}
+.testimonials-collapsible.open{max-height:5000px}
 .lang-content{display:none}
 .lang-content.active{display:block}
 @media (max-width:1024px){.zigzag-layout{grid-template-columns:1fr;grid-template-areas:"content" "media" !important}.accordion-left{flex-direction:column;align-items:flex-start;gap:8px}.accordion-year{min-width:auto}}
@@ -142,18 +149,52 @@ body{font-family:'Inter','Noto Sans TC',Arial,sans-serif;background:#181b23;colo
 <div class="lang-content active" data-lang="zh">
 <h4>💬 同事推薦</h4>
 
+<div class="testimonial-toggle" onclick="toggleTestimonials(event, this)">
+<span class="toggle-text">展開查看更多推薦 (3)</span>
+<span class="toggle-arrow">▼</span>
+</div>
+
+<div class="testimonials-collapsible">
 <div class="testimonial-card">
-<p class="testimonial-text">"Emma 在 AI 和電信領域的結合上有獨到的見解，她的專案執行能力極強。"</p>
-<p class="testimonial-author">— 電信協理</p>
+<p class="testimonial-text">"Emma 結合了電信與產品管理的專業，同時深入理解地理定位、RAN 監控與優化、BI 分析，以及 IT 和產品設計原則。她善於提出新功能、模組與應用場景的建議。她是出色的技術橋樑，能用創意圖解將複雜細節簡化，確保銷售、工程師和客戶都能充分理解產品願景與能力。許多人有技術知識，卻不具備用簡單清晰的方式解釋的天賦——Emma 兩者兼具！而且她能親自編寫解決方案，並能獨立處理整個專案。<br><br>Emma 是積極主動的同事，確保部門間運作順暢。她樂於助人、回應迅速，並主動預見需求、推動改進。例如，當系統整合商提出客戶對 RealMotion 整合的疑慮時，她立即提供詳細回饋，並在數天內獨自完成原型設計，展現她的細膩與執行力。而且她總是隨時回答銷售同事的問題。<br><br>儘管肩負多重職責（從設計到編碼等），Emma 具備出色的時程管理能力，準時交付承諾——無論對內對外。你不需要催她一百次。<br><br>Emma 的工作品質頂尖。她的 RealMotion 與 CovMo 應用場景及介面設計極具吸引力、使用者友善、清晰易懂——特別歸功於她優秀的繪圖能力與產品設計 GUI。<br><br>Emma 掌握電信市場與營運商需求的脈動，運用客戶回饋指導產品調整，並融入洞察來改進我們的 RealMotion 與 CovMo 解決方案，保持領先競爭對手。正如一位行動營運商在通話中所說：『Emma 的方法結合了創意、新的大數據分析／BI 想法，以及對細節的專注。我很喜歡；我買單了。』"</p>
+<p class="testimonial-author">— Ciprian S. Aionesei (Sales Manager)</p>
+</div>
+
+<div class="testimonial-card">
+<p class="testimonial-text">"Emma 在電信、IT 與產品設計方面的專業持續帶來有效成果，展現全面的職業技能。她為工作帶來寶貴的知識與創新。<br><br>她總是樂於傾聽並參與各種關於新功能或現有功能改進的討論。她接納客戶的應用場景，並嘗試調整產品以滿足客戶需求，同時維持產品策略向前推進。<br><br>即使在非常緊迫且超載的時程中，Emma 仍能提供所需的寶貴資料或資源。<br><br>她持續嘗試從客戶獲取回饋。有空時，Emma 會嘗試加入與客戶的通話，只為傾聽並理解客戶的需求和未解決的應用場景。"</p>
+<p class="testimonial-author">— Enri Paichadze (Customer Solution Engineer)</p>
+</div>
+
+<div class="testimonial-card">
+<p class="testimonial-text">"雖然 Emma 沒有電信背景，但她自學並理解所有 CovMo 功能及其背後的電信原理。她對行動通訊技術的理解達到了典型行動通訊專業人士的水準，能夠在業務會議中向電信同事（如 CSE）介紹新的 CovMo 功能與應用場景。在 IT 方面，她是專家，建立了全新的公司設計文件管理平台。即使到現在，許多新功能的設計原則與細節仍能透過這個系統清楚理解。在產品設計方面，她運用自身經驗，將先前產品團隊設計的難用 UI 轉變為使用者友善的介面；並將電信專家使用的複雜表達方式，替換為簡單、易懂且有效的產品功能。地圖圖層的控制與波束成形的呈現是最佳範例。<br><br>Emma 堅持不懈地讓跨部門營運回歸正軌，建立緊急程度與處理流程，防止因緊急狀況產生的客戶投訴。她還建立了客戶投訴處理流程，由 QA 先重現問題，讓後續部門能夠處理，加速流程並主動防止問題再次發生。<br><br>Emma 帶領產品設計團隊進行競爭分析，包括 SWOT 分析以識別 CovMo 的優勢與弱點，並制定可行的強化計畫來解決弱點。她定期檢視競爭對手網站以了解市場焦點領域，例如將 AI 引入 CovMo 產品。她訪談前行動營運商員工，了解營運商公司內各部門的工作流程及其關鍵關注點，並建立客戶檔案，在產品設計時提供焦點。"</p>
+<p class="testimonial-author">— Wayne Tzou (Telecom Expert, Manager)</p>
+</div>
 </div>
 
 </div>
 <div class="lang-content" data-lang="en">
 <h4>💬 Testimonials</h4>
 
+<div class="testimonial-toggle" onclick="toggleTestimonials(event, this)">
+<span class="toggle-text">Expand to see more testimonials (3)</span>
+<span class="toggle-arrow">▼</span>
+</div>
+
+<div class="testimonials-collapsible">
 <div class="testimonial-card">
-<p class="testimonial-text">"Emma has unique insights in combining AI with telecommunications, with exceptional project execution capabilities."</p>
-<p class="testimonial-author">— Telecom Associate VP</p>
+<p class="testimonial-text">"Emma brings expertise from telecom and product management, combined with a deep understanding of geolocation, RAN monitoring, optimization, BI analytics, and also with a grasp of IT and product design principles. She leverages her knowledge to bring proposals for new features, modules, and use-cases to the table, not only for RealMotion but also for CovMo. She's a fantastic technical bridge, simplifying complex details - often using creative drawings - to make sure everyone (from sales, engineers and clients) fully grasp the product vision and capabilities. Many people have technical knowledge, but don't have the talent to explain it in a simple and clear way; Emma has both! Moreover, she can code solutions herself, and she can handle entire projects.<br><br>Emma is a proactive colleague and keeps things running smoothly between departments. She is very helpful, gives quick feedback, and takes initiative to anticipate needs and drive improvements to RealMotion and CovMo. For instance, when a SI raised a client's concern about RealMotion integration challenges, she immediately provided detailed feedback to prototype a solution within days - all by herself, demonstrating her considerate approach and commitment to get things done. And she's always available to answer questions from sales colleagues.<br><br>Despite handling multiple responsibilities (from designing to coding, etc.), Emma has good schedule management, meeting deadlines and delivering on promises - both internally and externally. You don't need to ask her 100 times.<br><br>The quality of Emma's work is top-notch. Her RealMotion & CovMo use-cases, and application designs are incredibly eye-catching, user-friendly, clear and easy to understand - thanks especially to her beautiful drawing abilities, and product design GUI.<br><br>Emma keeps a good pulse on telco market and operator's needs, using client feedback to guide product adjustments and incorporate insights to improve our RealMotion & CovMo solutions, and keep it ahead of our competitors. As a mobile operator said during a call: 'Emma's approach combines creativity, new big data analytics/BI ideas, and a focus on details. I like it; I'm sold.'"</p>
+<p class="testimonial-author">— Ciprian S. Aionesei (Sales Manager)</p>
+</div>
+
+<div class="testimonial-card">
+<p class="testimonial-text">"Emma's expertise across Telecommunications, IT, and Product Design consistently drives effective results and highlights your well-rounded professional skills. It's clear you bring valuable knowledge and innovation to your work.<br><br>She is always keen to listen and engage in various discussions about new features or about incremental improvements of existing features. You are receptive to customers' use cases and try to adjust product in a way that it will fulfill customer's needs but at the same time maintain product strategy moving forward.<br><br>Even in a very tight and overloaded schedules Emma is still able to provide some valuable data or resources that are needed.<br><br>Constantly tries to get feedback from customers. When available, Emma tries to join calls with customers just to listen and understand what are customers' needs and unsolved use cases."</p>
+<p class="testimonial-author">— Enri Paichadze (Customer Solution Engineer)</p>
+</div>
+
+<div class="testimonial-card">
+<p class="testimonial-text">"Although Emma doesn't have a telecom background, she is self-taught and understands all CovMo functions and the underlying telecom principles. Her understanding of Mobile technology is at the level of a typical Mobile professional, allowing her to introduce new CovMo features and use cases to colleagues in the telecom, such as CSE, at business meetings. In IT, she is an expert, having established a completely new company design document management platform. Even now, the design principles and details of many new features can still be clearly understood through this system. In product design, leveraging her experience, she transformed previously difficult-to-use UI designed by previous product team into user-friendly ones; and replaced the complex expressions used by telecom experts with simple, easy-to-understand, and effective product features. The control of the map layer and the presentation of beam forming are the best examples.<br><br>Emma persevered in bringing interdepartmental operations back on track, establishing urgency levels and handling procedures to prevent customer complaints arising from emergencies. She also established a customer complaint handling process, with QA reproducing the problem first so that subsequent departments could handle it, accelerating the process and proactively preventing recurrence.<br><br>Emma led the PD in conducting competitive analysis, including a SWOT analysis to identify CovMo's strengths and weaknesses, and developed actionable enhancement plans to address the weaknesses. She regularly reviewed competitor websites to understand market focus areas, such as introducing AI into CovMo's products. Interviews with former Mobile operator employees were conducted to understand the workflow of various departments within the Mobile operator company and their key concerns. Customer profiles were created to provide focus during product design."</p>
+<p class="testimonial-author">— Wayne Tzou (Telecom Expert, Manager)</p>
+</div>
 </div>
 
 </div>
@@ -1063,6 +1104,24 @@ function toggleAccordion(item) {
     }, 300);
   } else {
     item.classList.remove('open');
+  }
+}
+
+function toggleTestimonials(event, toggleBtn) {
+  event.stopPropagation();
+  const collapsible = toggleBtn.nextElementSibling;
+  const isOpen = collapsible.classList.contains('open');
+
+  if (isOpen) {
+    collapsible.classList.remove('open');
+    toggleBtn.classList.remove('open');
+    toggleBtn.querySelector('.toggle-text').textContent =
+      currentLang === 'zh' ? '展開查看更多推薦 (3)' : 'Expand to see more testimonials (3)';
+  } else {
+    collapsible.classList.add('open');
+    toggleBtn.classList.add('open');
+    toggleBtn.querySelector('.toggle-text').textContent =
+      currentLang === 'zh' ? '收起推薦' : 'Collapse testimonials';
   }
 }
 
